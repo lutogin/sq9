@@ -16,15 +16,17 @@ export class Sq9Service {
     degrees: string | number = DegreesObj.d360,
   ): string[] {
     const result = [];
-    let currentValue = new BigNumber(initNum);
+    const sqrtFromNum = new BigNumber(initNum).squareRoot();
 
-    for (let i = 0; i < quantity; i++) {
-      const sqrtFromNum = currentValue.squareRoot();
+    for (let i = 1; i <= quantity; i++) {
       const findValue = direction === Direction.Previous
-        ? sqrtFromNum.minus(new BigNumber(degrees)).exponentiatedBy(2)
-        : sqrtFromNum.plus(new BigNumber(degrees)).exponentiatedBy(2);
+        ? sqrtFromNum
+          .minus(new BigNumber(degrees).multipliedBy(i))
+          .exponentiatedBy(2)
+        : sqrtFromNum
+          .plus(new BigNumber(degrees).multipliedBy(i))
+          .exponentiatedBy(2);
       result.push(findValue);
-      currentValue = findValue;
     }
 
     return result.map((num) => num.toNumber().toFixed(2));
