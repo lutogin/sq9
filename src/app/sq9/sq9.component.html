@@ -19,7 +19,7 @@
             class="form-control"
             [(ngModel)]="initNum"
             (focus)="clearInitNum($event)"
-            (ngModelChange)="checkInitNum()"
+            (blur)="checkInitNum()"
             value="{{initNum}}"
             name="initNum"
             type="number"
