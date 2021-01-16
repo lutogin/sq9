@@ -10,7 +10,7 @@ export class Sq9Service {
   constructor() { }
 
   sq9Generate(
-    initNum: number,
+    initNum: number | string,
     quantity: number = 3,
     direction: Direction = Direction.Previous,
     degrees: string | number = DegreesObj.d360,

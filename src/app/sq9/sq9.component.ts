@@ -13,11 +13,10 @@ import { Sq9Service } from './sq9.service';
   ],
 })
 export class Sq9Component implements OnInit {
-
-  initNum = 0;
+  initNum = '';
   quantityOutside = 6;
   quantityInside = 3;
-  selectDegree = 'd390';
+  selectedDegree = '';
   degrees: string[] = [];
 
   resultsOutside: string[] = [];
@@ -45,14 +44,26 @@ export class Sq9Component implements OnInit {
     );
   }
 
+  clearInitNum(evt: any): void {
+    this.initNum = evt.target.classList.contains('ng-pristine')
+      ? ''
+      : this.initNum;
+  }
+
+  checkInitNum(): void {
+    if (Number(this.initNum) < 1) {
+      this.initNum = '1';
+    }
+  }
+
 
   ngOnInit(): void {
     const keyDegrees = Object.keys(DegreesObj);
 
-    this.initNum = 0;
+    this.initNum = '215';
     this.quantityOutside = 6;
     this.quantityInside = 3;
-    this.selectDegree = keyDegrees[keyDegrees.length - 1];
+    this.selectedDegree = keyDegrees[keyDegrees.length - 1];
     this.degrees = keyDegrees;
   }
 }
