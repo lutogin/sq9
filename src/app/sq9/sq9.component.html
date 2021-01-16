@@ -49,6 +49,25 @@
           <label for="quantityInside" class="form-label">Количество внутрених уровней</label>
         </div>
 
+        <div class="form-floating mb-3">
+          <select
+            id="degreeSelect"
+            class="form-select"
+            aria-label="Выбор угла для расчета"
+            [(ngModel)]="selectDegree"
+            name="selectDegree"
+          >
+            <option
+              *ngFor="let degree of degrees"
+              selected
+              value="{{degree}}"
+            >
+              {{degree.slice(1)}}
+            </option>
+          </select>
+          <label for="degreeSelect" class="form-label">Выбор угла</label>
+        </div>
+
         <div class="form-group">
           <button class="btn btn-primary">Сгенерировать</button>
         </div>

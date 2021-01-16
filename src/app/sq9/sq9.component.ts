@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Direction } from './sq9.model';
+import { DegreesObj, Direction } from './sq9.model';
 import { Sq9Service } from './sq9.service';
 
 @Component({
@@ -17,7 +17,9 @@ export class Sq9Component implements OnInit {
   initNum = 0;
   quantityOutside = 6;
   quantityInside = 3;
-  thead: number[] = [];
+  selectDegree = 'd390';
+  degrees: string[] = [];
+
   resultsOutside: string[] = [];
   resultsInside: string[] = [];
 
@@ -29,22 +31,28 @@ export class Sq9Component implements OnInit {
     this.resultsOutside = this.sq9Service.sq9Generate(
       this.initNum,
       this.quantityOutside,
-      Direction.Next
+      Direction.Next,
+      // @ts-ignore
+      DegreesObj[this.selectDegree]
     );
 
     this.resultsInside = this.sq9Service.sq9Generate(
       this.initNum,
       this.quantityInside,
-      Direction.Previous
+      Direction.Previous,
+      // @ts-ignore
+      DegreesObj[this.selectDegree]
     );
-  }
-
-  findClosetsAngle(): void {
-    return;
   }
 
 
   ngOnInit(): void {
-  }
+    const keyDegrees = Object.keys(DegreesObj);
 
+    this.initNum = 0;
+    this.quantityOutside = 6;
+    this.quantityInside = 3;
+    this.selectDegree = keyDegrees[keyDegrees.length - 1];
+    this.degrees = keyDegrees;
+  }
 }
