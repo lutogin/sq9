@@ -1,0 +1,78 @@
+<head>
+  <title>SQ9</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<hr>
+<h3 style="text-align: center">SQ9</h3>
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm"></div>
+    <div class="col-sm">
+      <form #f="ngForm" novalidate (ngSubmit)="generateNumber()">
+
+        <div class="form-floating mb-3">
+          <input
+            id="initNum"
+            class="form-control"
+            [(ngModel)]="initNum"
+            value="{{initNum}}"
+            name="initNum"
+            type="number"
+          >
+          <label for="initNum" class="form-label">Начальная цена</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            id="quantityOutside"
+            class="form-control"
+            [(ngModel)]="quantityOutside"
+            name="quantityOutside"
+            value="{{quantityOutside}}"
+            type="number"
+          >
+          <label for="quantityOutside" class="form-label">Количество внешних уровней</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            id="quantityInside"
+            class="form-control"
+            [(ngModel)]="quantityInside"
+            name="quantityInside"
+            value="{{quantityInside}}"
+            type="number"
+          >
+          <label for="quantityInside" class="form-label">Количество внутрених уровней</label>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary">Сгенерировать</button>
+        </div>
+      </form>
+
+      <br>
+      <div>
+        <table class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Внутрениие значения</th>
+            <th scope="col">Внешние значения</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let resultI of resultsOutside; let i = index">
+            <td>{{resultI}}</td>
+            <td>{{resultsInside[i] || '--'}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm"></div>
+  </div>
+</div>
+
