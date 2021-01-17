@@ -19,6 +19,8 @@ export class Sq9Component implements OnInit {
   selectedDegree = '';
   degrees: string[] = [];
 
+  closetsAngle = 0;
+
   resultsOutside: string[] = [];
   resultsInside: string[] = [];
 
@@ -42,6 +44,15 @@ export class Sq9Component implements OnInit {
       // @ts-ignore
       degrees: DegreesObj[this.selectedDegree]
     });
+
+    this.closetsAngle = this.getClosetsAngle();
+  }
+
+  private getClosetsAngle(): number {
+    return Number(
+      this.sq9Service.findClosetsAngle(Number(this.initNum))
+        .replace(/\D+/g, '')
+    );
   }
 
   clearInitNum(evt: any): void {

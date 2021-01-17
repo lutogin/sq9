@@ -7,13 +7,13 @@ import { DegreesEnum, Direction, StartingAngleNumbers } from './sq9.model';
   providedIn: 'root'
 })
 export class Sq9Service {
+  DEEP = 99;
 
   constructor() {
-    console.log(' ---> ', this.fillMainDg());
   }
 
   // @ts-ignore
-  private sq9Generate(
+  private static sq9Generate(
     { initNum, quantity, direction = Direction.Next, degrees = DegreesEnum.dg360 }: ISq9GenerateDto
   ): BigNumber[] {
     const result = [];
@@ -27,24 +27,43 @@ export class Sq9Service {
         : sqrtFromNum
           .plus(new BigNumber(degrees).multipliedBy(i))
           .exponentiatedBy(2);
+
       result.push(findValue);
     }
 
     return result;
   }
 
+  findClosetsAngle(initNum: number): string {
+    const mainAngles = this.fillMainDg(this.DEEP);
+    const angleKeys = Object.keys(mainAngles);
+    const closetsFromAll = angleKeys
+      .map((angle: string) => this.findClosestNum(mainAngles[angle], initNum));
+
+    const maxClosets = this.findClosestNum(closetsFromAll, initNum);
+    return angleKeys.filter((angle: string) => mainAngles[angle].includes(maxClosets))[0];
+  }
+
+  findClosestNum(arr: number[], value: number): number {
+    function closestReduce(accum: number, current: number): number {
+      return Math.abs(current - value) < Math.abs(accum - value) ? current : accum;
+    }
+
+    return arr.reduce(closestReduce);
+  }
+
   sq9GenerateStr(data: ISq9GenerateDto): string[] {
-    return this.sq9Generate(data)
+    return Sq9Service.sq9Generate(data)
       .map((num) => num.toNumber().toFixed(2));
   }
 
   sq9GenerateDecimal(data: ISq9GenerateDto): number[] {
-    return this.sq9Generate(data)
+    return Sq9Service.sq9Generate(data)
       .map((num) => num.toNumber());
   }
 
   sq9GenerateNum(data: ISq9GenerateDto): number[] {
-    return this.sq9Generate(data)
+    return Sq9Service.sq9Generate(data)
       .map((num) => Math.round(num.toNumber()));
   }
 
@@ -56,8 +75,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg45,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg45
-        }),
+          degrees: DegreesEnum.dg360}),
       ],
       dg90: [
         StartingAngleNumbers.dg90,
@@ -65,8 +83,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg90,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg90
-        })
+          degrees: DegreesEnum.dg360})
       ],
       dg135: [
         StartingAngleNumbers.dg135,
@@ -74,7 +91,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg135,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg135
+          degrees: DegreesEnum.dg360
         }),
       ],
       dg180: [
@@ -83,7 +100,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg180,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg180
+          degrees: DegreesEnum.dg360
         })
       ],
       dg225: [
@@ -92,7 +109,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg225,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg225
+          degrees: DegreesEnum.dg360
         }),
       ],
       dg270: [
@@ -101,7 +118,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg270,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg270
+          degrees: DegreesEnum.dg360
         }),
       ],
       dg315: [
@@ -110,7 +127,7 @@ export class Sq9Service {
           initNum: StartingAngleNumbers.dg315,
           quantity: deep,
           direction: Direction.Next,
-          degrees: DegreesEnum.dg315
+          degrees: DegreesEnum.dg360
         }),
       ],
       dg360: [
