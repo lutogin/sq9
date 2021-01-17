@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-sm"></div>
     <div class="col-sm">
-      <form #f="ngForm" (submit)="generateNumber()">
+      <form #f="ngForm" (submit)="generate()">
 
         <div class="form-floating mb-3">
           <input
@@ -71,7 +71,7 @@
               [selected]="degree === 'd360'"
               value="{{degree}}"
             >
-              {{degree.slice(1)}}°
+              {{degree.slice(2)}}°
             </option>
           </select>
           <label for="degreeSelect" class="form-label">Выбор угла</label>

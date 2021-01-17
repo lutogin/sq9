@@ -26,22 +26,22 @@ export class Sq9Component implements OnInit {
     private readonly sq9Service: Sq9Service,
   ) {}
 
-  generateNumber(): void {
-    this.resultsOutside = this.sq9Service.sq9Generate(
-      this.initNum,
-      this.quantityOutside,
-      Direction.Next,
+  generate(): void {
+    this.resultsOutside = this.sq9Service.sq9GenerateStr({
+      initNum: this.initNum,
+      quantity: this.quantityOutside,
+      direction: Direction.Next,
       // @ts-ignore
-      DegreesObj[this.selectDegree]
-    );
+      degrees: DegreesObj[this.selectedDegree]
+    });
 
-    this.resultsInside = this.sq9Service.sq9Generate(
-      this.initNum,
-      this.quantityInside,
-      Direction.Previous,
+    this.resultsInside = this.sq9Service.sq9GenerateStr({
+      initNum: this.initNum,
+      quantity: this.quantityInside,
+      direction: Direction.Previous,
       // @ts-ignore
-      DegreesObj[this.selectDegree]
-    );
+      degrees: DegreesObj[this.selectedDegree]
+    });
   }
 
   clearInitNum(evt: any): void {
@@ -60,7 +60,7 @@ export class Sq9Component implements OnInit {
   ngOnInit(): void {
     const keyDegrees = Object.keys(DegreesObj);
 
-    this.initNum = '215';
+    this.initNum = '225';
     this.quantityOutside = 6;
     this.quantityInside = 3;
     this.selectedDegree = keyDegrees[keyDegrees.length - 1];
