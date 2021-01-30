@@ -60,8 +60,8 @@
         <div class="form-floating mb-3">
           <input
             id="closetsAngle"
-            class="form-control"
-            value="{{closetsAngle}}°"
+            class="form-control {{closetsClass}}"
+            value="{{closetsAngle | angle}}"
             name="closetsAngle"
             disabled="disabled"
             type="text"
@@ -79,10 +79,10 @@
           >
             <option
               *ngFor="let degree of degrees"
-              [selected]="degree === 'd360'"
+              [selected]="degree === 'dg360'"
               value="{{degree}}"
             >
-              {{degree.slice(2)}}°
+              {{degree.slice(2) | angle}}
             </option>
           </select>
           <label for="degreeSelect" class="form-label">Выбор угла</label>

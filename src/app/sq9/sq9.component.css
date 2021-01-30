@@ -5,3 +5,27 @@ input.ng-touched.ng-invalid {
 input.ng-touched.ng-valid {
   border:solid forestgreen 2px;
 }
+
+.success {
+  background-color: lightgreen !important;
+}
+
+.primary {
+  background-color: lightblue !important;
+}
+
+.secondary {
+  background-color: lightgrey !important;
+}
+
+.danger {
+  background-color: lightcoral !important;
+}
+
+.warning {
+  background-color: lightgoldenrodyellow !important;
+}
+
+.info {
+  background-color: aliceblue !important;
+}
